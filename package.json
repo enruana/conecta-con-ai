@@ -13,33 +13,36 @@
     "@typescript-eslint/parser": "~8.19",
     "@vitest/coverage-v8": "~2.1",
     "@vitest/eslint-plugin": "~1.1",
-    "eslint-config-prettier": "~9.1",
     "eslint": "~9.17",
+    "eslint-config-prettier": "~9.1",
     "globals": "~15.14",
     "prettier": "~3.4",
     "rimraf": "~6.0",
     "ts-api-utils": "~2.0",
-    "typescript-eslint": "~8.19",
     "typescript": "~5.7",
+    "typescript-eslint": "~8.19",
     "vitest": "~2.1"
   },
   "scripts": {
-    "start": "node build/src/main.js",
+    "dev": "node -r dotenv/config --watch build/src/main.js & tsc -w -p tsconfig.json",
+    "start": "node -r dotenv/config build/src/main.js",
     "clean": "rimraf coverage build tmp",
     "prebuild": "npm run lint",
     "build": "tsc -p tsconfig.json",
     "build:watch": "tsc -w -p tsconfig.json",
     "build:release": "npm run clean && tsc -p tsconfig.release.json",
     "lint": "eslint .",
-    "test": "vitest run unit --config __tests__/vitest.config.ts",
-    "test:coverage": "vitest run unit --config __tests__/vitest.config.ts --coverage.enabled --coverage.all",
+    "test": "node -r dotenv/config $(which vitest) run unit --config __tests__/vitest.config.ts",
+    "test:coverage": "node -r dotenv/config $(which vitest) run unit --config __tests__/vitest.config.ts --coverage.enabled --coverage.all",
     "prettier": "prettier \"{src,__{tests}__}/**/*.{ts,mts}\" --config .prettierrc --write",
     "prettier:check": "prettier \"{src,__{tests}__}/**/*.{ts,mts}\" --config .prettierrc --check",
-    "test:watch": "vitest unit"
+    "test:watch": "node -r dotenv/config $(which vitest) unit"
   },
   "author": "Jakub Synowiec <jsynowiec@users.noreply.github.com>",
   "license": "Apache-2.0",
   "dependencies": {
+    "dotenv": "^16.4.7",
+    "openai": "^4.79.1",
     "tslib": "~2.8"
   },
   "volta": {
