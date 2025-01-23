@@ -40,7 +40,6 @@ export const testAudioInAudioOut = async (): Promise<void> => {
       {
         role: 'user',
         content: [
-          { type: 'text', text: 'What is in this recording?' },
           {
             type: 'input_audio',
             input_audio: { data: base64str, format: 'mp3' },
@@ -50,6 +49,8 @@ export const testAudioInAudioOut = async (): Promise<void> => {
     ],
     store: true,
   });
+
+  console.log(response.choices[0]);
 
   // Write audio data to a file
   writeFileSync(
