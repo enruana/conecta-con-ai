@@ -63,6 +63,29 @@ unzip node-typescript-boilerplate.zip && rm node-typescript-boilerplate.zip
 - `test:watch` - interactive watch mode to automatically re-run tests
 - `test:coverage` - run test and print out test coverage
 
+## AI Testing Features
+
+This project includes an interactive test runner for various AI capabilities:
+
+1. **Text Generation** - Test text generation capabilities
+2. **Vision** - Test vision analysis with URLs
+3. **Vision with Local Image** - Test vision analysis with local images
+4. **Image Generation** - Test AI image generation
+5. **Image Edit** - Test AI image editing capabilities
+6. **Image Variation** - Test AI image variation generation
+7. **Audio** - Test audio processing
+8. **Audio In/Out** - Test audio input/output processing
+9. **Text to Speech** - Test text-to-speech conversion
+10. **Speech to Text** - Test speech-to-text conversion
+
+To run the tests, use:
+
+```sh
+npm start
+```
+
+This will launch an interactive prompt where you can select which AI feature to test.
+
 ## Additional Information
 
 ### Why include Volta
