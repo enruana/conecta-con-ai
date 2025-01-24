@@ -87,7 +87,10 @@ async function main(): Promise<void> {
     await runSelectedTest(selection);
     process.exit(0);
   } catch (error) {
-    console.error('Error running test:', error instanceof Error ? error.message : 'Unknown error occurred');
+    console.error(
+      'Error running test:',
+      error instanceof Error ? error.message : 'Unknown error occurred',
+    );
     process.exit(1);
   }
 }

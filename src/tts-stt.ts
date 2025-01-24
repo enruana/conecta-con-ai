@@ -15,6 +15,4 @@ export async function testTextToSpeech(): Promise<void> {
   await fs.promises.writeFile('text-to-speach.mp3', buffer);
 }
 
-export async function testSpeechToText(): Promise<void> {
-  
-}
+export async function testSpeechToText(): Promise<void> {}

@@ -1,4 +1,4 @@
-import OpenAI from "openai";
+import OpenAI from 'openai';
 import * as fs from 'fs';
 const openai = new OpenAI();
 
@@ -42,7 +42,6 @@ const testImageEdit = async (): Promise<void> => {
   const buffer = Buffer.from(image, 'base64');
   fs.writeFileSync('generated-image-edited.png', buffer);
   console.log('Image saved successfully!');
-
 };
 
 const testImageVariation = async (): Promise<void> => {
@@ -64,5 +63,4 @@ const testImageVariation = async (): Promise<void> => {
   console.log('Image saved successfully!');
 };
 
-export { testImageGeneration, testImageEdit, testImageVariation };  
-
+export { testImageGeneration, testImageEdit, testImageVariation };
