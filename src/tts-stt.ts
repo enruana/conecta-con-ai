@@ -16,7 +16,6 @@ export async function testTextToSpeech(): Promise<void> {
 }
 
 export async function testSpeechToText(): Promise<void> {
-
   const openai = new OpenAI();
 
   const transcription = await openai.audio.transcriptions.create({
