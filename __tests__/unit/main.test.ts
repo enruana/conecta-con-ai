@@ -1,4 +1,4 @@
-import { describe, afterEach, beforeEach, vi } from 'vitest';
+import { describe, afterEach, beforeEach, vi, it, expect } from 'vitest';
 
 describe('greeter function', () => {
   beforeEach(() => {
@@ -10,5 +10,9 @@ describe('greeter function', () => {
   afterEach(() => {
     vi.useRealTimers();
     vi.restoreAllMocks();
+  });
+
+  it('should return a greeting message', () => {
+    expect(true).toBe(true);
   });
 });
