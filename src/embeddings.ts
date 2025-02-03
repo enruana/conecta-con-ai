@@ -12,14 +12,12 @@ const generateEmbeddings = async (text: string): Promise<number[]> => {
 
 export const saveEmbeddings = async (): Promise<void> => {
   const inputs = [
-    'gato',
-    'perro',
-    'oso',
-    'elefante',
-    'jirafa',
-    'tigre',
-    'león',
-    'leopardo',
+    'John is a 34 year old man',
+    'John lives in Bogotá, Colombia',
+    'John is single',
+    'John is a software engineer',
+    'John is a father of 2',
+    'John graduated from the National University of Colombia',
   ];
 
   const embeddings = await Promise.all(inputs.map(generateEmbeddings));
@@ -37,7 +35,7 @@ export const saveEmbeddings = async (): Promise<void> => {
 };
 
 export const testEmbeddings = async (): Promise<void> => {
-  const input = 'animal';
+  const input = 'Where lives John?';
 
   // load the saved embeddings
   const embeddings: { input: string; embedding: number[] }[] = JSON.parse(
