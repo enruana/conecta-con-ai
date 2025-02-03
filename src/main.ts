@@ -8,6 +8,7 @@ import {
 import { testAudio, testAudioInAudioOut } from './audio.js';
 import { testSpeechToText, testTextToSpeech } from './tts-stt.js';
 import inquirer from 'inquirer';
+import { saveEmbeddings, testEmbeddings } from './embeddings.js';
 
 // Define the available test options
 enum TestOption {
@@ -21,6 +22,8 @@ enum TestOption {
   AudioInOut = '8',
   TextToSpeech = '9',
   SpeechToText = '10',
+  SaveEmbeddings = '11',
+  TestEmbeddings = '12',
 }
 
 const TEST_CHOICES = [
@@ -34,6 +37,8 @@ const TEST_CHOICES = [
   { name: 'Audio In/Out', value: TestOption.AudioInOut },
   { name: 'Text to Speech', value: TestOption.TextToSpeech },
   { name: 'Speech to Text', value: TestOption.SpeechToText },
+  { name: 'Save Embeddings', value: TestOption.SaveEmbeddings },
+  { name: 'Test Embeddings', value: TestOption.TestEmbeddings },
 ] as const;
 
 async function runSelectedTest(selection: TestOption): Promise<void> {
@@ -67,6 +72,12 @@ async function runSelectedTest(selection: TestOption): Promise<void> {
       break;
     case TestOption.SpeechToText:
       await testSpeechToText();
+      break;
+    case TestOption.SaveEmbeddings:
+      await saveEmbeddings();
+      break;
+    case TestOption.TestEmbeddings:
+      await testEmbeddings();
       break;
     default:
       throw new Error(`Unsupported test option: ${selection}`);
