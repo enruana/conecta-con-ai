@@ -9,7 +9,10 @@ import { testAudio, testAudioInAudioOut } from './audio.js';
 import { testSpeechToText, testTextToSpeech } from './tts-stt.js';
 import inquirer from 'inquirer';
 import { saveEmbeddings, testEmbeddings } from './embeddings.js';
-import { testStructuredOutputOpenAIExample } from './structured-output.js';
+import {
+  testStructuredOutputOpenAIExample,
+  testStructuredOutputExtendedExample,
+} from './structured-output.js';
 // Define the available test options
 enum TestOption {
   TextGeneration = '1',
@@ -25,6 +28,7 @@ enum TestOption {
   SaveEmbeddings = '11',
   TestEmbeddings = '12',
   StructuredOutputExample = '13',
+  StructuredOutputExtendedExample = '14',
 }
 
 const TEST_CHOICES = [
@@ -43,6 +47,10 @@ const TEST_CHOICES = [
   {
     name: 'Structured Output Open AI Example',
     value: TestOption.StructuredOutputExample,
+  },
+  {
+    name: 'Structured Output Extended Example',
+    value: TestOption.StructuredOutputExtendedExample,
   },
 ] as const;
 
@@ -86,6 +94,9 @@ async function runSelectedTest(selection: TestOption): Promise<void> {
       break;
     case TestOption.StructuredOutputExample:
       await testStructuredOutputOpenAIExample();
+      break;
+    case TestOption.StructuredOutputExtendedExample:
+      await testStructuredOutputExtendedExample();
       break;
     default:
       throw new Error(`Unsupported test option: ${selection}`);
