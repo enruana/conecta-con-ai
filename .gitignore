@@ -30,3 +30,4 @@ build/
 
 # Env
 .env
+.qodo
