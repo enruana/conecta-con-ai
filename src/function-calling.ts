@@ -41,7 +41,7 @@ async function testFunctionCalling(): Promise<void> {
     {
       role: 'user',
       content:
-        'Envia un email a felipemantillagomez@gmail.com solicitando acceso a la base de datos de produccion',
+        'Envia un email a felipemantillagomez@gmail.com solicitando acceso a la base de datos de produccion, de parte de Juan Lopez',
     },
   ];
 
