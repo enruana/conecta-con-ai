@@ -1,4 +1,4 @@
-import { OpenAI } from 'openai';
+import { OpenAI, } from 'openai';
 import nodemailer from 'nodemailer';
 
 const openai = new OpenAI();
@@ -19,7 +19,7 @@ async function sendEmail(
   to: string,
   subject: string,
   body: string,
-): Promise<void> {
+): Promise<string> {
   try {
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
@@ -27,7 +27,7 @@ async function sendEmail(
       subject: subject,
       text: body,
     });
-    console.log('Email sent successfully');
+    return 'Email sent successfully';
   } catch (error) {
     console.error('Error sending email:', error);
     throw error;
@@ -35,15 +35,20 @@ async function sendEmail(
 }
 
 async function testFunctionCalling(): Promise<void> {
+  // Initialize messages array with user's initial message
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const messages: any[] = [
+    {
+      role: 'user',
+      content:
+        'Envia un email a felipemantillagomez@gmail.com solicitando acceso a la base de datos de produccion',
+    },
+  ];
+
+  // First API call
   const completion = await openai.chat.completions.create({
     model: 'gpt-4',
-    messages: [
-      {
-        role: 'user',
-        content:
-          'Envia un email a felipemantillagomez@gmail.com solicitando acceso a la base de datos de produccion',
-      },
-    ],
+    messages: messages,
     tools: [
       {
         type: 'function',
@@ -75,7 +80,8 @@ async function testFunctionCalling(): Promise<void> {
     ],
   });
 
-  console.log(JSON.stringify(completion.choices[0].message, null, 2));
+  // Add assistant's response to messages
+  messages.push(completion.choices[0].message);
 
   const toolCalls = completion.choices[0].message.tool_calls;
 
@@ -83,11 +89,28 @@ async function testFunctionCalling(): Promise<void> {
     for (const toolCall of toolCalls) {
       if (toolCall.function.name === 'send_email') {
         const args = JSON.parse(toolCall.function.arguments);
-        await sendEmail(args.to, args.subject, args.body);
+        const functionResponse = await sendEmail(args.to, args.subject, args.body);
+        
+        // Add the function response to messages
+        messages.push({
+          role: 'tool',
+          content: functionResponse,
+          tool_call_id: toolCall.id,
+        });
       }
     }
+
+    // Make a second API call with the function results
+    const secondCompletion = await openai.chat.completions.create({
+      model: 'gpt-4',
+      messages: messages,
+    });
+
+    // Add final response to messages
+    messages.push(secondCompletion.choices[0].message);
+    
+    console.log('Final conversation:', JSON.stringify(messages, null, 2));
   }
 }
 
 export { testFunctionCalling };
-
