@@ -13,6 +13,8 @@ import {
   testStructuredOutputOpenAIExample,
   testStructuredOutputExtendedExample,
 } from './structured-output.js';
+import { testFunctionCalling } from './function-calling.js';
+
 // Define the available test options
 enum TestOption {
   TextGeneration = '1',
@@ -29,6 +31,7 @@ enum TestOption {
   TestEmbeddings = '12',
   StructuredOutputExample = '13',
   StructuredOutputExtendedExample = '14',
+  FunctionCalling = '15',
 }
 
 const TEST_CHOICES = [
@@ -51,6 +54,10 @@ const TEST_CHOICES = [
   {
     name: 'Structured Output Extended Example',
     value: TestOption.StructuredOutputExtendedExample,
+  },
+  {
+    name: 'Function Calling',
+    value: TestOption.FunctionCalling,
   },
 ] as const;
 
@@ -97,6 +104,9 @@ async function runSelectedTest(selection: TestOption): Promise<void> {
       break;
     case TestOption.StructuredOutputExtendedExample:
       await testStructuredOutputExtendedExample();
+      break;
+    case TestOption.FunctionCalling:
+      await testFunctionCalling();
       break;
     default:
       throw new Error(`Unsupported test option: ${selection}`);
