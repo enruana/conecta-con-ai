@@ -44,6 +44,7 @@
     "@types/inquirer": "^9.0.7",
     "dotenv": "^16.4.7",
     "inquirer": "^12.3.2",
+    "nodemailer": "^6.10.0",
     "openai": "^4.79.1",
     "tslib": "~2.8",
     "zod": "^3.24.1"
